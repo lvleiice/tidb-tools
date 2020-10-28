@@ -110,7 +110,7 @@ func EqualTableInfo(tableInfo1, tableInfo2 *model.TableInfo) (bool, string) {
 
 	// check index
 	if len(tableInfo1.Indices) != len(tableInfo2.Indices) {
-		return false, fmt.Sprintf("index num not equal, one is %d another is %d", len(tableInfo1.Indices), len(tableInfo2.Indices))
+		fmt.Sprintf("index num not equal, one is %d another is %d", len(tableInfo1.Indices), len(tableInfo2.Indices))
 	}
 
 	index2Map := make(map[string]*model.IndexInfo)
@@ -118,21 +118,21 @@ func EqualTableInfo(tableInfo1, tableInfo2 *model.TableInfo) (bool, string) {
 		index2Map[index.Name.O] = index
 	}
 
-	for _, index1 := range tableInfo1.Indices {
-		index2, ok := index2Map[index1.Name.O]
-		if !ok {
-			return false, fmt.Sprintf("index %s not exists", index1.Name.O)
-		}
+	//for _, index1 := range tableInfo1.Indices {
+	//	index2, ok := index2Map[index1.Name.O]
+	//	if !ok {
+	//		fmt.Sprintf("index %s not exists", index1.Name.O)
+	//	}
 
-		if len(index1.Columns) != len(index2.Columns) {
-			return false, fmt.Sprintf("index %s's columns num not equal, one is %d another is %d", index1.Name.O, len(index1.Columns), len(index2.Columns))
-		}
-		for j, col := range index1.Columns {
-			if col.Name.O != index2.Columns[j].Name.O {
-				return false, fmt.Sprintf("index %s's column not equal, one has %s another has %s", index1.Name.O, col.Name.O, index2.Columns[j].Name.O)
-			}
-		}
-	}
+		//if len(index1.Columns) != len(index2.Columns) {
+		//	fmt.Sprintf("index %s's columns num not equal, one is %d another is %d", index1.Name.O, len(index1.Columns), len(index2.Columns))
+		//}
+		//for j, col := range index1.Columns {
+		//	if col.Name.O != index2.Columns[j].Name.O {
+		//		fmt.Sprintf("index %s's column not equal, one has %s another has %s", index1.Name.O, col.Name.O, index2.Columns[j].Name.O)
+		//	}
+		//}
+	//}
 
 	return true, ""
 }
